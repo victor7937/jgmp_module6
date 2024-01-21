@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{events/fragments :: links}" th:with="title = 'New Event'"></head>
+<body>
+<div th:insert="~{events/fragments :: header}"></div>
+
+<!--<form th:method="POST" th:action="@{/events}">-->
+<!--&lt;!&ndash;    <label for="event_title">Title: </label>&ndash;&gt;-->
+<!--&lt;!&ndash;    <input id="event_title" name="title" type="text"/>&ndash;&gt;-->
+<!--    <br/>-->
+<!--&lt;!&ndash;    <label for="event_date">Date: </label>&ndash;&gt;-->
+<!--&lt;!&ndash;    <input id="event_date" name="date" type="datetime-local"/>&ndash;&gt;-->
+<!--    <br/>-->
+<!--    <input type="submit" value="Create"/>-->
+<!--</form>-->
+
+<div class="container-fluid bg-dark-subtle text-center">
+        <h2 class="text-uppercase text-muted py-4">Add New Event</h2>
+</div>
+<div class="card my-3 mx-auto w-25">
+    <div class="card-body">
+        <form th:method="POST" th:action="@{/events}">
+            <div class="mb-3">
+                <label for="event_title" class="form-label">Event Title</label>
+                <input id="event_title" type="text" class="form-control" name="title" aria-describedby="emailHelp">
+
+            </div>
+            <div class="mb-3">
+                <label for="event_date" class="form-label">Event Date</label>
+                <input id="event_date" name="date" type="datetime-local" class="form-control" aria-describedby="dateTimeHelp">
+                <div id="dateTimeHelp" class="form-text">Please, specify date and time of event</div>
+            </div>
+            <button type="submit" class="btn btn-dark">Create</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{events/fragments :: links}" th:with="title = 'Search by Date'"></head>
+<body>
+<div th:insert="~{events/fragments :: header}"></div>
+
+
+
+<!--<div th:if="${events}">-->
+<!--    <div th:if="${events.isEmpty()}">-->
+<!--        <span>No events for this date</span>-->
+<!--    </div>-->
+<!--    <div th:each="event : ${events}">-->
+<!--        <div th:object="${event}">-->
+<!--            <a th:href="@{/events/{id}(id=*{id})}" th:text="*{title}"/>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--</div>-->
+
+<div class="container-fluid bg-dark-subtle text-center">
+    <h2 class="text-uppercase text-muted py-4">Event List</h2>
+</div>
+
+<div class="mx-auto w-25">
+    <form id="event_form" th:method="GET" th:action="@{/events}">
+        <label for="event_date"></label>
+        <input type="date" id="event_date" class="form-control" name="date" th:value="${#temporals.format(current_date, 'yyyy-MM-dd')}"/>
+        <div id="dateTimeHelp" class="form-text">Please, choose the date of event</div>
+    </form>
+</div>
+
+<div class="my-3 mx-auto w-25" th:each="event : ${events}">
+    <div class="card my-2">
+        <div class="card-body" th:object="${event}" >
+            <a th:href="@{/events/{id}(id=*{id})}" th:text="*{title}"/>
+            <span class="time_of_event" th:text="*{date.toString()}"></span>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<script>
+    document.getElementById("event_date").addEventListener("change",e =>{
+        document.getElementById("event_form").submit();
+    })
+
+    Array.from(document.getElementsByClassName("time_of_event")).forEach((e) => {
+        e.innerHTML = new Date(e.innerHTML).toISOString().slice(11, 16);
+    })
+</script>
+</html>

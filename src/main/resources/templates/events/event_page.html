@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{events/fragments :: links}" th:with="title = 'Event'"></head>
+<body>
+<div th:insert="~{events/fragments :: header}"></div>
+
+<div th:object="${event}">
+    <p>Id: <span th:text="*{id}"></span></p>
+    <p>Title: <span th:text="*{title}"></span></p>
+    <p>Date: <span th:text="*{date.toString()}"></span></p>
+    <a th:href="@{/events/{id}/update(id=*{id})}">Edit</a>
+    <form th:method="DELETE" th:action="@{/events/{id}(id=*{id})}">
+        <input type="submit" value="Delete"/>
+    </form>
+</div>
+
+
+</body>
+</html>
