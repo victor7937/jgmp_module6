@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments :: links}" th:with="header_title = 'Search By Email'"></head>
+<body>
+<div th:insert="~{fragments :: header}"></div>
+
+<div th:insert="~{fragments :: jumbotron}" th:with="jumbotron_text = 'Evens By Email'"></div>
+
+<div class="mx-auto w-25 container bg-body-tertiary py-4">
+
+    <form role="search" id="event_form" th:method="GET" th:action="@{/users/search}">
+        <div class="row">
+            <div class="col-9">
+                <input class="form-control me-2" type="email" name="email" th:value="${current_email}" placeholder="Email" aria-label="Search">
+            </div>
+            <div class="col-3">
+                <input class="btn btn-outline-dark" value="Search" type="submit"/>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div th:if="${user != null}">
+    <div class="card my-3 mx-auto"  style="width: 25rem;" th:object="${user}">
+        <img th:src="@{/img/user.jpg}" class="card-img-top" alt="event">
+        <div class="card-body">
+            <h5 th:text="*{name}" class="card-title"></h5>
+            <!--        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><span class="fw-bold text-body-secondary">Id </span><span th:text="*{id}"> </span></li>
+            <li class="list-group-item"><span class="fw-bold text-body-secondary">Email </span> <span th:text="*{email}"></span></li>
+            <li class="list-group-item"><span class="fw-bold text-body-secondary">Balance </span> <span th:text="*{userAccount.getAmount().toString()}"></span><span> тенге</span></li>
+        </ul>
+        <div class="card-body">
+            <div class="container">
+                <div class="row justify-content-between">
+                    <div class="col-3">
+                        <a th:href="@{/users/{id}/update(id=*{id})}" class="btn btn-dark">Edit</a>
+                    </div>
+                    <div class="col-3">
+                        <form th:method="DELETE" th:action="@{/users/{id}(id=*{id})}">
+                            <input class="btn btn-danger" type="submit" value="Delete"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</body>
+
+</html>

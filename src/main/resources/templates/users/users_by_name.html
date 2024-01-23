@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments :: links}" th:with="header_title = 'Search By Name'"></head>
+<body>
+<div th:insert="~{fragments :: header}"></div>
+
+<div th:insert="~{fragments :: jumbotron}" th:with="jumbotron_text = 'Fund Users By Name'"></div>
+
+<div class="mx-auto w-25 container bg-body-tertiary py-4">
+    <form role="search" id="event_form" th:method="GET" th:action="@{/users}">
+        <div class="row">
+           <div class="col-9">
+               <input class="form-control me-2" type="search" name="name" th:value="${current_name}" placeholder="Name" aria-label="Search">
+           </div>
+           <div class="col-3">
+               <button class="btn btn-outline-dark" type="submit">Search</button>
+           </div>
+        </div>
+    </form>
+</div>
+
+<div class="my-3 mx-auto w-25" th:each="user : ${users}">
+    <div class="card my-2">
+        <div class="card-body" th:object="${user}" >
+            <div class="container">
+                <div class="row">
+                    <div class="col-9">
+                        <a th:href="@{/users/{id}(id=*{id})}" class="link-underline-opacity-10 link-secondary fw-bolder link-underline-opacity-100-hover" th:text="*{name}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

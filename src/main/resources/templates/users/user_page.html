@@ -6,24 +6,25 @@
 
 <div th:insert="~{fragments :: jumbotron}" th:with="jumbotron_text = 'Event Page'"></div>
 
-<div class="card my-3 mx-auto"  style="width: 25rem;" th:object="${event}">
-    <img th:src="@{/img/image-event.jpeg}" class="card-img-top" alt="event">
+<div class="card my-3 mx-auto"  style="width: 25rem;" th:object="${user}">
+    <img th:src="@{/img/user.jpg}" class="card-img-top" alt="event">
     <div class="card-body">
-        <h5 th:text="*{title}" class="card-title"></h5>
+        <h5 th:text="*{name}" class="card-title"></h5>
 <!--        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
     </div>
     <ul class="list-group list-group-flush">
         <li class="list-group-item"><span class="fw-bold text-body-secondary">Id </span><span th:text="*{id}"> </span></li>
-        <li class="list-group-item"><span class="fw-bold text-body-secondary">Date </span> <span id="event_date" th:text="*{date.toString()}"></span></li>
+        <li class="list-group-item"><span class="fw-bold text-body-secondary">Email </span> <span th:text="*{email}"></span></li>
+        <li class="list-group-item"><span class="fw-bold text-body-secondary">Balance </span> <span th:text="*{userAccount.getAmount().toString()}"></span><span> тенге</span></li>
     </ul>
     <div class="card-body">
         <div class="container">
             <div class="row justify-content-between">
                 <div class="col-3">
-                    <a th:href="@{/events/{id}/update(id=*{id})}" class="btn btn-dark">Edit</a>
+                    <a th:href="@{/users/{id}/update(id=*{id})}" class="btn btn-dark">Edit</a>
                 </div>
                 <div class="col-3">
-                    <form th:method="DELETE" th:action="@{/events/{id}(id=*{id})}">
+                    <form th:method="DELETE" th:action="@{/users/{id}(id=*{id})}">
                         <input class="btn btn-danger" type="submit" value="Delete"/>
                     </form>
                 </div>
@@ -35,8 +36,4 @@
 
 </body>
 
-<script>
-    let eventDateElem = document.getElementById("event_date");
-    eventDateElem.innerHTML = eventDateElem.innerHTML.replace("T", " ").replace("Z","");
-</script>
 </html>

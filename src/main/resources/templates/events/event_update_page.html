@@ -1,38 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="~{events/fragments :: links}" th:with="title = 'Update Event'"></head>
+<head th:insert="~{fragments :: links}" th:with="header_title = 'Update Event'"></head>
 <body>
-<div th:insert="~{events/fragments :: header}"></div>
+<div th:insert="~{fragments :: header}"></div>
 
-<form th:method="POST" th:action="@{/events/{id}/edit(id=${event.getId()})}" th:object="${event}">
-    <label for="event_title">Title: </label>
-    <input id="event_title" name="title" type="text" th:value="*{title}"/>
-    <br/>
-    <label for="event_date">Date: </label>
-<!--    <input id="event_date" name="date" type="datetime-local" th:value="${event.date.toString()}"/>-->
-    <input id="event_date" name="date" type="datetime-local" th:value="${#temporals.format(event_timestamp, 'yyyy-MM-dd HH:mm:ss')}"/>
-    <br/>
-    <input type="submit" value="Update"/>
-</form>
+<div th:insert="~{fragments :: jumbotron}" th:with="jumbotron_text = 'Edit Event'"></div>
 
-<!--<form th:method="POST" th:action="@{/events/{id}/edit(id=${event.getId()})}" th:object="${event}">-->
-<!--    <label for="title">Title: </label>-->
-<!--    <input type="text" th:field="*{title}" id="title"/>-->
-<!--    <br/>-->
-<!--    <label for="date">Enter name: </label>-->
-<!--    <input type="datetime-local" name="date" th:value="${#temporals.format(event_timestamp, 'yyyy-MM-dd HH:mm:ss')}" id="date"/>-->
-<!--    <br/>-->
-<!--    <label for="age">Enter age: </label>-->
-<!--    <input type="text" th:field="*{age}" id="age"/>-->
-<!--    <div style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age Error</div>-->
-<!--    <br/>-->
-<!--    <label for="email">Enter email: </label>-->
-<!--    <input type="text" th:field="*{email}" id="email"/>-->
-<!--    <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</div>-->
-<!--    <br/>-->
-<!--    <input type="submit" value="Update!"/>-->
-<!--</form>-->
+<div class="card my-3 mx-auto w-25">
+    <div class="card-body">
+        <form id="update_form" th:method="POST" th:action="@{/events/{id}/edit(id=${event.getId()})}" th:object="${event}">
+            <div class="mb-3">
+                <label for="event_title" class="form-label">Event Title</label>
+                <input id="event_title" type="text" class="form-control" name="title" th:value="*{title}">
 
+            </div>
+            <div class="mb-3">
+                <label for="event_date" class="form-label">Event Date</label>
+                <input id="event_date" name="date" type="datetime-local" class="form-control" th:value="${#temporals.format(event_timestamp, 'yyyy-MM-dd HH:mm')}">
+            </div>
+            <button id="update-btn" type="submit" class="btn btn-dark">Update</button>
+        </form>
+    </div>
+</div>
 
 </body>
+
 </html>

@@ -1,39 +1,47 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="~{events/fragments :: links}" th:with="title = 'Search By Title'"></head>
+<head th:insert="~{fragments :: links}" th:with="header_title = 'Search By Title'"></head>
 <body>
-<div th:insert="~{events/fragments :: header}"></div>
+<div th:insert="~{fragments :: header}"></div>
 
-<nav class="navbar bg-body-tertiary">
-    <div class="container-fluid">
-        <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-    </div>
-</nav>
+<div th:insert="~{fragments :: jumbotron}" th:with="jumbotron_text = 'Evens By Title'"></div>
 
-<form id="event_form" th:method="GET" th:action="@{/events/search}">
-    <label for="event_title">Event title:</label>
-    <input type="text" id="event_title" name="title" th:value="${title}"/>
-</form>
+<div class="mx-auto w-25 container bg-body-tertiary py-4">
 
-<div th:if="${events}">
-    <div th:if="${events.isEmpty()}">
-        <span>No events found</span>
-    </div>
-    <div th:each="event : ${events}">
-        <div th:object="${event}">
-            <a th:href="@{/events/{id}(id=*{id})}" th:text="*{title}"/>
+        <form role="search" id="event_form" th:method="GET" th:action="@{/events/search}">
+            <div class="row">
+                       <div class="col-9">
+                           <input class="form-control me-2" type="search" name="title" th:value="${title}" placeholder="Title" aria-label="Search">
+                       </div>
+                       <div class="col-3">
+                           <button class="btn btn-outline-dark" type="submit">Search</button>
+                       </div>
+            </div>
+            </form>
+</div>
+
+<div class="my-3 mx-auto w-25" th:each="event : ${events}">
+    <div class="card my-2">
+        <div class="card-body" th:object="${event}" >
+            <div class="container">
+                <div class="row">
+                    <div class="col-9">
+                        <a th:href="@{/events/{id}(id=*{id})}" class="link-underline-opacity-10 link-secondary fw-bolder link-underline-opacity-100-hover" th:text="*{title}"/>
+                    </div>
+                    <div class="col-3">
+                        <div class="time_of_event" th:text="*{date.toString()}"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
 </div>
+
 </body>
 
 <script>
-    document.getElementById("event_title").addEventListener("change",e =>{
-        document.getElementById("event_form").submit();
+    Array.from(document.getElementsByClassName("time_of_event")).forEach((e) => {
+        e.innerHTML = new Date(e.innerHTML).toISOString().slice(5, 16).replace("T", " ");
     })
 </script>
 </html>

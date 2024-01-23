@@ -33,14 +33,14 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<Event> getByTitle(String title, int pageSize, int pageNum) {
-        return eventRepository.findAllByTitleContainingIgnoreCase(title, PageRequest.of(pageNum, pageSize));
+        return eventRepository.findAllByTitleContainingIgnoreCaseOrderByDate(title, PageRequest.of(pageNum, pageSize));
     }
 
     @Override
     public List<Event> getOfDate(LocalDate day, int pageSize, int pageNum) {
         Instant start = day.atStartOfDay(ZoneId.of("UTC")).toInstant();
         Instant end = start.plus(1, ChronoUnit.DAYS).minus(1, ChronoUnit.MILLIS);
-        return eventRepository.findAllByDateBetween(start, end);
+        return eventRepository.findAllByDateBetweenOrderByDate(start, end);
     }
 
     @Override

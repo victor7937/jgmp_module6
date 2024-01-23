@@ -38,13 +38,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(
-                () -> new EmailNotFoundException("User " + email + " not found"));
+//        return userRepository.findByEmail(email).orElseThrow(
+//                () -> new EmailNotFoundException("User " + email + " not found"));
+        return userRepository.findByEmail(email).orElse(null);
     }
 
     @Override
     public List<User> getByName(String name, int pageSize, int pageNum) {
-        return userRepository.findAllByName(name, PageRequest.of(pageNum, pageSize));
+        return userRepository.findAllByNameContainingOrderByName(name, PageRequest.of(pageNum, pageSize));
     }
 
     @Override

@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
-    List<Event> findAllByTitleContainingIgnoreCase(String title, Pageable pageable);
+    List<Event> findAllByTitleContainingIgnoreCaseOrderByDate(String title, Pageable pageable);
 
-    List<Event> findAllByDateBetween(Instant dateStart, Instant dateEnd);
+    List<Event> findAllByDateBetweenOrderByDate(Instant dateStart, Instant dateEnd);
 }
