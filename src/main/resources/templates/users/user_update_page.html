@@ -8,14 +8,14 @@
 
 <div class="card my-3 mx-auto w-25">
     <div class="card-body">
-        <form id="update_form" th:method="POST" th:action="@{/users/{id}/edit(id=${user.getId()})}" th:object="${user}">
+        <form id="update_form" th:method="PATCH" th:action="@{/users/{id}(id=${user.getId()})}" th:object="${user}">
             <div class="mb-3">
                 <label for="user_name" class="form-label">Name</label>
-                <input id="user_name" type="text" th:field="*{name}" class="form-control">
+                <input id="user_name" type="text" th:field="*{name}" class="form-control" required>
             </div>
             <div class="mb-3">
                 <label for="user_email" class="form-label">Email</label>
-                <input id="user_email" type="email" th:field="*{email}" class="form-control">
+                <input id="user_email" type="email" th:field="*{email}" class="form-control" required>
             </div>
             <input id="update-btn" type="submit" class="btn btn-dark" value="Update">
         </form>

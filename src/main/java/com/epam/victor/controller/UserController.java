@@ -53,7 +53,9 @@ public class UserController {
 
     @GetMapping("/{id}")
     public String showUserById(@PathVariable("id") Long id, Model model){
-        model.addAttribute("user", bookingFacade.getUserById(id));
+        User user = bookingFacade.getUserById(id);
+        model.addAttribute("user", user);
+        model.addAttribute("tickets", bookingFacade.getBookedTickets(user, 15, 0));
         return "users/user_page";
     }
 
@@ -81,7 +83,7 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @PostMapping("/{id}/edit")
+    @PatchMapping("/{id}")
     public String updateUser(@PathVariable("id") Long id, @ModelAttribute("user") User user){
         bookingFacade.updateUser(user);
         return "redirect:/users/" + id;

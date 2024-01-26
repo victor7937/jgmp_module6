@@ -20,15 +20,14 @@
         <form th:method="POST" th:action="@{/events}">
             <div class="mb-3">
                 <label for="event_title" class="form-label">Event Title</label>
-                <input id="event_title" type="text" class="form-control" name="title" aria-describedby="emailHelp">
-
+                <input id="event_title" type="text" class="form-control" name="title" aria-describedby="emailHelp" required>
             </div>
             <div class="mb-3">
                 <label for="event_date" class="form-label">Event Date</label>
                 <input id="event_date" name="date" type="datetime-local" class="form-control" aria-describedby="dateTimeHelp">
                 <div id="dateTimeHelp" class="form-text">Please, specify date and time of event</div>
             </div>
-            <button type="submit" class="btn btn-dark">Create</button>
+            <input type="submit" class="btn btn-dark" value="Create">
         </form>
     </div>
 </div>

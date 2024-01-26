@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="~{fragments :: links}" th:with="header_title = 'Event'"></head>
+<head th:insert="~{fragments :: links}" th:with="header_title = 'User'"></head>
 <body>
 <div th:insert="~{fragments :: header}"></div>
 
-<div th:insert="~{fragments :: jumbotron}" th:with="jumbotron_text = 'Event Page'"></div>
+<div th:insert="~{fragments :: jumbotron}" th:with="jumbotron_text = 'User Page'"></div>
 
-<div class="card my-3 mx-auto"  style="width: 25rem;" th:object="${user}">
+<div th:fragment="user_card" class="card my-3 mx-auto"  style="width: 25rem;" th:object="${user}">
     <img th:src="@{/img/user.jpg}" class="card-img-top" alt="event">
     <div class="card-body">
         <h5 th:text="*{name}" class="card-title"></h5>
@@ -30,9 +30,17 @@
                 </div>
             </div>
         </div>
+        <div class="mx-auto my-2 fw-bold fs-2">Tickets</div>
+        <div class="my-3 mx-auto" th:each="ticket : ${tickets}">
+            <div class="card my-2">
+                <div class="card-body" th:object="${ticket}" >
+                    <a th:href="@{/tickets/{id}(id=*{id})}" class="link-underline-opacity-10 link-secondary fw-bolder link-underline-opacity-100-hover" th:text="${ticket.getEvent().getTitle()} + ' : ' + ${ticket.getPlace()}"/>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
-
 
 </body>
 

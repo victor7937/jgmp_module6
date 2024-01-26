@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments :: links}" th:with="header_title = 'Ticket'"></head>
+<body>
+<div th:insert="~{fragments :: header}"></div>
+
+<div th:insert="~{fragments :: jumbotron}" th:with="jumbotron_text = 'Ticket Page'"></div>
+
+<div class="card my-3 mx-auto"  style="width: 25rem;" th:object="${ticket}">
+    <img th:src="@{/img/ticket.jpg}" class="card-img-top" alt="event">
+    <div class="card-body">
+        <h5 th:text="${ticket.getEvent().getTitle() + ' Ticket'}" class="card-title"></h5>
+        <!--        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><span class="fw-bold text-body-secondary">Id </span><span th:text="*{id}"> </span></li>
+        <li class="list-group-item"><span class="fw-bold text-body-secondary">Category </span> <span th:text="*{category.toString()}"></span></li>
+        <li class="list-group-item"><span class="fw-bold text-body-secondary">Place </span> <span th:text="*{place}"></span></li>
+        <li class="list-group-item"><span class="fw-bold text-body-secondary">Price </span> <span th:text="*{price.toString()}"></span></li>
+        <li class="list-group-item"><span class="fw-bold text-body-secondary">Place </span> <span th:text="*{place}"></span></li>
+        <li class="list-group-item"><span class="fw-bold text-body-secondary">User <a th:href="@{/users/{id}(id=*{user.getId()})}" class="link-underline-opacity-10 link-secondary fw-bolder link-underline-opacity-100-hover" th:text="*{user.getName()}"/></span></li>
+        <li class="list-group-item"><span class="fw-bold text-body-secondary">Place </span>  <a th:href="@{/events/{id}(id=*{event.getId()})}" class="link-underline-opacity-10 link-secondary fw-bolder link-underline-opacity-100-hover" th:text="*{event.getTitle()}"/> </li>
+    </ul>
+    <div class="card-body">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-3">
+                    <a th:href="@{/events/{id}/update(id=*{id})}" class="btn btn-dark">Edit</a>
+                </div>
+                <div class="col-3">
+                    <form th:method="DELETE" th:action="@{/events/{id}(id=*{id})}">
+                        <input class="btn btn-danger" type="submit" value="Delete"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+<script>
+    let eventDateElem = document.getElementById("event_date");
+    eventDateElem.innerHTML = eventDateElem.innerHTML.replace("T", " ").replace("Z","");
+</script>
+</html>
